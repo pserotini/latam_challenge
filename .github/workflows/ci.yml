@@ -9,9 +9,28 @@ on:
       - main
 
 jobs:
+  start_server:
+    name: Start Uvicorn Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: make venv install
+
+      - name: Start Uvicorn Server
+        run: uvicorn challenge.api:app --host http://127.0.0.1 --port 8000
+
   test:
     name: Run All Tests
     runs-on: ubuntu-latest
+    needs: start_server  # Ensure the server starts before running tests
 
     steps:
       - name: Checkout code
