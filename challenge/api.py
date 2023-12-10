@@ -1,5 +1,4 @@
 import fastapi
-# from model import DelayModel
 from challenge.model import DelayModel
 from fastapi import HTTPException  # Import HTTPException
 import pandas as pd
