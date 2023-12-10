@@ -23,12 +23,11 @@ install:		## Install dependencies
 	pip install -r requirements-test.txt
 	pip install -r requirements.txt
 
-# STRESS_URL = http://127.0.0.1:8000 
-STRESS_URL = http://ec2-18-228-30-158.sa-east-1.compute.amazonaws.com:8000
+STRESS_URL = http://127.0.0.1:8000 
+# STRESS_URL = http://ec2-18-228-30-158.sa-east-1.compute.amazonaws.com:8000
 
 .PHONY: stress-test
 stress-test:
-	# change stress url to your deployed app 
 	mkdir reports || true
 	locust -f tests/stress/api_stress.py --print-stats --html reports/stress-test.html --run-time 60s --headless --users 100 --spawn-rate 1 -H $(STRESS_URL)
 
