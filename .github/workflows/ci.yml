@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: make venv install
 
+      - name: Check files
+        run: ls -la        
+
       - name: Start Uvicorn Server
         run: uvicorn challenge.api:app --host http://127.0.0.1 --port 8000
 
