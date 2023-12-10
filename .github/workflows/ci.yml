@@ -28,7 +28,7 @@ jobs:
         run: ls -la        
 
       - name: Start Uvicorn Server
-        run: uvicorn challenge.api:app
+        run: uvicorn challenge.api:app &
 
   test:
     name: Run All Tests
