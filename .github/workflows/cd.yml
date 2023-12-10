@@ -1,7 +1,35 @@
-name: 'Continuous Delivery'
+name: Continuous Delivery
 
 on:
-  ...
+  workflow_run:
+    workflows: ["CI"]
+    branches:
+      - main
+    types:
+      - completed
 
 jobs:
-  ...
+  deploy:
+    name: Deploy to EC2 Instance
+    runs-on: ubuntu-latest
+    needs: CI
+    if: ${{ needs.CI.result == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Additional steps for deployment to EC2
+      # ...
+
+      - name: Run Further Checks
+        run: |
+          # Add any additional checks or validations after deployment
+          # For example:
+          # - Test the deployed API
+          # - Perform integration tests against the deployed system
+          # ...
+
+          # If all checks are successful, mark the deployment as successful
+          # Otherwise, set the deployment as failed
+          exit 0  # Replace with your validation logic

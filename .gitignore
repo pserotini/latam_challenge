@@ -1,3 +1,4 @@
 challenge/sample_run.ipynb
 /Pipfile
 /Pipfile.lock
+/.github/workflows/cd.yml
