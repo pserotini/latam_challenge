@@ -9,7 +9,7 @@ import logging
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
-    level=logging.info,
+    level=logging.INFO,
     datefmt='%Y-%m-%d %H:%M:%S')
 
 
@@ -32,7 +32,8 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(hostname=host, port=22, username=username, pkey=private_key)
 
 commands = ["sudo rm -rf latam_challenge", f"git clone {repo_url}", f"tmux kill-session -t latam_api" , f"tmux new -d -s latam_api",
-f"""tmux send-keys -t latam_api "cd latam_challenge && uvicorn challenge.api:app --host {host} --port {port}" ENTER"""]
+f"""tmux send-keys -t latam_api "cd latam_challenge && uvicorn challenge.api:app --host {host} --port {port}" ENTER""",
+"cd latam_challenge && make stress-test"]
 
 for command in commands:
 
