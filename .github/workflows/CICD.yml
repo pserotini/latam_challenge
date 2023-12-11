@@ -9,9 +9,8 @@ on:
       - main
 
 jobs:
-
-  install_dependencies:
-    name: Install dependencies
+  start_server:
+    name: Start Uvicorn Server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,11 +24,6 @@ jobs:
       - name: Install dependencies
         run: make venv install     
 
-  start_server:
-    name: Start Uvicorn Server
-    runs-on: ubuntu-latest
-    needs: install_dependencies
-    steps:
       - name: Start Uvicorn Server
         run: uvicorn challenge.api:app &
 
@@ -39,6 +33,17 @@ jobs:
     needs: start_server  # Ensure the server starts before running tests
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: make venv install
+
       - name: Run Model Tests
         run: make model-test
 
@@ -52,6 +57,12 @@ jobs:
     if: ${{ needs.check_before_deploy.result == 'success' }}
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make venv install    
+
       - name: Deploy Steps
         run: |
           python3 deployment/deploy.py
