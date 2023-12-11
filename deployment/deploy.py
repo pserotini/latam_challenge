@@ -3,19 +3,24 @@ import git
 from io import StringIO
 import select
 import pandas as pd
+import os
+import logging
+
+
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.info,
+    datefmt='%Y-%m-%d %H:%M:%S')
+
 
 # EC2 instance details
 host = 'ec2-18-228-30-158.sa-east-1.compute.amazonaws.com'
 port = 8000
 username = 'ec2-user'  # Replace with your EC2 username
-private_key_str = """
------BEGIN OPENSSH PRIVATE KEY-----
-
------END OPENSSH PRIVATE KEY-----
-"""
+private_key_str = os.getenv('EC2_SSH')
 
 # Git repository details
-repo_url = 'git@github.com:pserotini/latam_challenge.git -b dev'
+repo_url = 'git@github.com:pserotini/latam_challenge.git'
 repo_path = './'  # Replace with the local path where you want to clone the repo
 
 # Convert private key string to file-like object
@@ -31,7 +36,7 @@ f"""tmux send-keys -t latam_api "cd latam_challenge && uvicorn challenge.api:app
 
 for command in commands:
 
-    print(command)
+    logging.info(command)
     # Command execution
     stdin, stdout, stderr = ssh.exec_command(command)
     output = stdout.read().decode('utf-8')

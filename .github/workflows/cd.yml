@@ -2,7 +2,7 @@ name: Continuous Delivery
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ["Continuous Integration"]
     branches:
       - main
     types:
@@ -15,21 +15,15 @@ jobs:
     needs: CI
     if: ${{ needs.CI.result == 'success' }}
 
+    env:
+      EC2_SSH: ${{ secrets.EC2_SSH }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Additional steps for deployment to EC2
-      # ...
+      - name: Install dependencies
+        run: make install
 
-      - name: Run Further Checks
-        run: |
-          # Add any additional checks or validations after deployment
-          # For example:
-          # - Test the deployed API
-          # - Perform integration tests against the deployed system
-          # ...
-
-          # If all checks are successful, mark the deployment as successful
-          # Otherwise, set the deployment as failed
-          exit 0  # Replace with your validation logic
+      - name: Deploy using Python script
+        run: python3 deployment/deploy.py
