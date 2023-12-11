@@ -55,6 +55,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
 
+    env:
+      EC2_SSH: ${{ secrets.EC2_SSH }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
