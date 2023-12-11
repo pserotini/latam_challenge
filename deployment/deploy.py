@@ -44,8 +44,8 @@ for command in commands:
 
     # Output and error handling
     if output:
-        print("Command output:")
-        print(output)
+        logging.info("Command output:")
+        logging.info(output)
     if error:
-        print("Command error:")
-        print(error)
+        logging.info("Command error:")
+        logging.info(error)
