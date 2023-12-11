@@ -19,3 +19,8 @@
 - #### the argument 'persist_flag' in method 'fit' that persists the model by dumping it into a file named as the string used in the argument;
 - #### the method 'load' which takes a model file name as argument to directly load the model previously dumped by the use of 'model_name' in method 'fit'. 
 
+## 3. api
+#### The api was deployed and passed in all tests.
+
+## 4. CI/CD
+#### A cicd workflow was implemented within github actions and sucessfully tests the code and deploys the latest model/API.
