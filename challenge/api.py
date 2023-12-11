@@ -9,7 +9,7 @@ delay_model = DelayModel()  # Initialize the DelayModel when the application sta
 @app.get("/health", status_code=200)
 async def get_health() -> dict:
     return {
-        "status": "OK"
+        "status": "OKAPA"
     }
 
 @app.post("/predict", status_code=200)
