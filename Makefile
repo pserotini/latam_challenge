@@ -23,8 +23,8 @@ install:		## Install dependencies
 	pip install -r requirements-test.txt
 	pip install -r requirements.txt
 
-STRESS_URL = http://127.0.0.1:8000 
-# STRESS_URL = http://ec2-18-228-30-158.sa-east-1.compute.amazonaws.com:8000
+# STRESS_URL = http://127.0.0.1:8000 
+STRESS_URL = http://ec2-18-228-30-158.sa-east-1.compute.amazonaws.com:8000
 
 .PHONY: stress-test
 stress-test:
