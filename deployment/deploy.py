@@ -19,7 +19,6 @@ port = 8000
 username = 'ec2-user'  # Replace with your EC2 username
 
 private_key_str = os.getenv('EC2_SSH')
-print(f"private_key_str: {private_key_str}")
 private_key_str = private_key_str.replace("\\n", "\n")
 
 # Git repository details
