@@ -22,10 +22,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: make venv install
-
-      - name: Check files
-        run: ls -la        
+        run: make venv install     
 
       - name: Start Uvicorn Server
         run: uvicorn challenge.api:app &
@@ -36,16 +33,6 @@ jobs:
     needs: start_server  # Ensure the server starts before running tests
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: make venv install
 
       - name: Run Model Tests
         run: make model-test
@@ -60,9 +47,6 @@ jobs:
     if: ${{ needs.check_before_deploy.result == 'success' }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
 
       - name: Deploy Steps
         run: |
