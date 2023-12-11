@@ -54,7 +54,10 @@ jobs:
     name: Deploy to EC2 Instance
     runs-on: ubuntu-latest
     needs: test
-    if: ${{ needs.check_before_deploy.result == 'success' }}
+    if: github.ref == 'refs/heads/main'
+
+    env:
+      EC2_SSH: ${{ secrets.EC2_SSH }}
 
     steps:
       - name: Checkout code

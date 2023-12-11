@@ -17,7 +17,9 @@ logging.basicConfig(
 host = 'ec2-18-228-30-158.sa-east-1.compute.amazonaws.com'
 port = 8000
 username = 'ec2-user'  # Replace with your EC2 username
+
 private_key_str = os.getenv('EC2_SSH')
+private_key_str = private_key_str.replace("\\n", "\n")
 
 # Git repository details
 repo_url = 'git@github.com:pserotini/latam_challenge.git'
